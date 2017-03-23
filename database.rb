@@ -1,59 +1,42 @@
-class Person
-  # Saving the correct data into class
-  attr_reader "name", "phone_number", "address", "position", "salary", "slack_account", "github_account"
-  # Defining name, phone_number, address, position, salary, slack_account, github_account
-  def initialize(name, phone_number, address, position, salary, slack_account, github_account)
-    @name = name
-    @phone_number = phone_number
-    @address = address
-    @position = position
-    @salary = salary
-    @slack_account = slack_account
-    @github_account = github_account
-  end
-end
-class Data
-  attr_reader "search_name", "found"
+class Database
+  attr_reader 'search_person', 'found', 'add_person'
+
   def initialize
     @accounts = []
     @found = found
   end
 
   def add_person
-    loop do
-      print 'What is their name? '
-      name = gets.chomp.capitalize
+    print 'What is their name? '
+    name = gets.chomp
 
-      break if name.empty?
+    print 'What is their phone number? '
+    phone_number = gets.chomp.to_i
 
-      print 'What is their phone number? '
-      phone_number = gets.chomp.to_i
+    print 'What is their address? '
+    address = gets.chomp
 
-      print 'What is their address? '
-      address = gets.chomp
+    print 'What is their position at the Iron Yard? '
+    position = gets.chomp
 
-      print 'What is their position at the Iron Yard? '
-      position = gets.chomp
+    print 'What is their salary? '
+    salary = gets.chomp.to_i
 
-      print 'What is their salary? '
-      salary = gets.chomp.to_i
+    print 'What is their Slack username? '
+    slack_account = gets.chomp
 
-      print 'What is their Slack username? '
-      slack_account = gets.chomp
+    print 'What is their GitHub username? '
+    github_account = gets.chomp
 
-      print 'What is their GitHub username? '
-      github_account = gets.chomp
+    account = Person.new(name, phone_number, address, position, salary, slack_account, github_account)
 
-      account = Person.new(name, phone_number, address, position, salary, slack_account, github_account)
-
-      @accounts << account
-    end
+    @accounts << account
   end
 
   def search_person
     found = false
     puts 'Please input the name of the person you want to search'
-    search_person = gets.chomp.capitalize
+    search_person = gets.chomp
 
     @accounts.each do |account|
       next unless account.name == search_person
@@ -72,23 +55,57 @@ class Data
   end
 
   def delete_person
-    puts 'delete'
+    found = false
+    index = 0
+    puts "Who are you looking to terminate? "
+    name = gets.chomp
+
+    @accounts.each do |account|
+      if account.name == name
+        found = true
+        puts "Account has been exterminated!"
+        @accounts.slice!(index)
+      end
+      index += 1
+    end
+    if found == false
+      puts "No such account exist"
+    end
   end
 end
-data = Data.new
+
+class Person
+  # Saving the correct data into class
+  attr_reader 'name', 'phone_number', 'address', 'position', 'salary', 'slack_account', 'github_account'
+
+  # Defining name, phone_number, address, position, salary,slack_account, github_account
+  def initialize(name, phone_number, address, position, salary, slack_account, github_account)
+    @name = name
+    @phone_number = phone_number
+    @address = address
+    @position = position
+    @salary = salary
+    @slack_account = slack_account
+    @github_account = github_account
+  end
+end
+
+data = Database.new
+
 loop do
-  puts "Would you like to Add (A), Search (S) or Delete (D) a person from the Iron Yard Database? Or would you like to Quit (Q) the program? "
+  puts 'Would you like to Add (A), Search (S) or Delete (D) a person from the Iron Yard Database? Or would you like to Quit (Q) the program? '
   selected = gets.chomp.upcase
-  if selected == "A"
+  if selected == 'A'
     data.add_person
-  elsif selected == "S"
+  elsif selected == 'S'
     data.search_person
-  elsif selected == "D"
+  elsif selected == 'D'
     data.delete_person
-  elsif selected == "Q"
+  elsif selected == 'Q'
     quit_program
-end
-  def quit_program
-    puts "Thank you come again!"
   end
+end
+
+def quit_program
+  puts 'Thank you come again!'
 end
