@@ -1,17 +1,4 @@
-# Nouns
-# Names
-# Phone Numbers
-# Address
-# Position
-# Salary
-# Slack Account
-# Github Account
-# Verbs
-# Add
-# Search
-# Delete
-# Name the class
-class TiyData
+class Person
   # Saving the correct data into class
   attr_reader "name", "phone_number", "address", "position", "salary", "slack_account", "github_account"
   # Defining name, phone_number, address, position, salary, slack_account, github_account
@@ -24,41 +11,84 @@ class TiyData
     @slack_account = slack_account
     @github_account = github_account
   end
-  # Create an array to hold all of the information
-  accounts = []
-  loop do
-    # Ask the user where they want to go?
-    puts "Are you looking to Add (A), Search (S) or Delete D? "
-    input = gets.chomp.upcase
-    if input == "A"
-      loop do
-        puts "What is their name? "
-        name = gets.chomp
-        # If no name appears have it break
-        if name.empty?
-          break
-        end
-        puts "What is their phone number? "
-        phone_number = gets.chomp
-        puts "What is their address? "
-        address = gets.chomp
-        puts "What is their position? "
-        position = gets.chomp
-        puts "What is their salary? "
-        salary = gets.chomp
-        puts "What is their slack name? "
-        slack_account = gets.chomp
-        puts "What is their GitHub user name? "
-        github_account = gets.chomp
+end
+class Data
+  attr_reader "search_name", "found"
+  def initialize
+    @accounts = []
+    @found = found
+  end
 
-        account = TiyData.new(name, phone_number, address, position, salary, slack_account, github_account)
-        accounts << account
-      end
+  def add_person
+    loop do
+      print 'What is their name? '
+      name = gets.chomp.capitalize
 
+      break if name.empty?
+
+      print 'What is their phone number? '
+      phone_number = gets.chomp.to_i
+
+      print 'What is their address? '
+      address = gets.chomp
+
+      print 'What is their position at the Iron Yard? '
+      position = gets.chomp
+
+      print 'What is their salary? '
+      salary = gets.chomp.to_i
+
+      print 'What is their Slack username? '
+      slack_account = gets.chomp
+
+      print 'What is their GitHub username? '
+      github_account = gets.chomp
+
+      account = Person.new(name, phone_number, address, position, salary, slack_account, github_account)
+
+      @accounts << account
     end
-    if input == "S"
-      puts "Search: " 
+  end
+
+  def search_person
+    found = false
+    puts 'Please input the name of the person you want to search'
+    search_person = gets.chomp.capitalize
+
+    @accounts.each do |account|
+      next unless account.name == search_person
+      found = true
+      puts "This is #{account.name}'s information.
+       \nName: #{account.name}
+       \nPhone: #{account.phone_number}
+       \nAddress: #{account.address}
+       \nPosition: #{account}.position}
+       \nSalary: #{account.salary}
+       \nSlack Account: #{account.slack_account}
+       \nGitHub Account: #{account.github_account}"
     end
 
+    puts "#{search_person} is not in our system.\n" if found == false
+  end
+
+  def delete_person
+    puts 'delete'
+  end
+end
+data = Data.new
+loop do
+  puts "Would you like to Add (A), Search (S) or Delete (D) a person from the Iron Yard Database? Or would you like to Quit (Q) the program? "
+  selected = gets.chomp.upcase
+  if selected == "A"
+    data.add_person
+  elsif selected == "S"
+    data.search_person
+  elsif selected == "D"
+    data.delete_person
+  elsif selected == "Q"
+    quit_program
+end
+  def quit_program
+    puts "Thank you come again!"
   end
 end
