@@ -101,7 +101,5 @@ loop do
     data.search_person
   elsif selected == 'D'
     data.delete_person
-  elsif selected == 'Q'
-    quit_program
   end
 end
