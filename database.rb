@@ -8,7 +8,7 @@ class Database
 
   def add_person
     print 'What is their name? '
-    name = gets.chomp
+    name = gets.chomp.
 
     print 'What is their phone number? '
     phone_number = gets.chomp.to_i
@@ -93,7 +93,7 @@ end
 data = Database.new
 
 loop do
-  puts 'Would you like to Add (A), Search (S) or Delete (D) a person from the Iron Yard Database? Or would you like to Quit (Q) the program? '
+  puts 'Would you like to Add (A), Search (S) or Delete (D) a person from the Iron Yard Database?'
   selected = gets.chomp.upcase
   if selected == 'A'
     data.add_person
@@ -104,8 +104,4 @@ loop do
   elsif selected == 'Q'
     quit_program
   end
-end
-
-def quit_program
-  puts 'Thank you come again!'
 end
