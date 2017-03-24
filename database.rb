@@ -8,7 +8,7 @@ class Database
 
   def add_person
     print 'What is their name? '
-    name = gets.chomp.
+    name = gets.chomp
 
     print 'What is their phone number? '
     phone_number = gets.chomp.to_i
